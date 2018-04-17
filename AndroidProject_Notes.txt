@@ -1,0 +1,11 @@
+﻿Splash Screen Resources
+https://android.jlelse.eu/launch-screen-in-android-the-right-way-aca7e8c31f52
+https://stackoverflow.com/questions/5486789/how-do-i-make-a-splash-screen
+
+Play Sound Resources
+https://www.youtube.com/watch?v=9oj4f8721LM
+https://developer.android.com/reference/android/media/MediaPlayer.html
+
+Four Button Resources
+https://stackoverflow.com/questions/44176555/semi-circle-button-android
+https://stackoverflow.com/questions/17124719/creating-using-9-patch-images-in-android
