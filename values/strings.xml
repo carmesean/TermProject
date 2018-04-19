@@ -1,7 +1,0 @@
-<resources>
-    <string name="app_name">AubieActivity</string>
-    <string name="main_title">Aubie\'s Memory</string>
-    <string name="start_game_btn">Start Game</string>
-    <string name="difficulty_btn">Change Difficulty</string>
-    <string name="options_btn">Options</string>
-</resources>
