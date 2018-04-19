@@ -4,4 +4,5 @@
     <string name="start_game_btn">Start Game</string>
     <string name="difficulty_btn">Change Difficulty</string>
     <string name="options_btn">Options</string>
+    <string name="begin_btn">Begin Game</string>
 </resources>
