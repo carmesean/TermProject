@@ -10,7 +10,7 @@ public class SplashActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Intent intent = new Intent(this, AubieActivity.class);
+        Intent intent = new Intent(this, StartGameActivity.class);
         startActivity(intent);
         finish();
 //        setContentView(R.layout.activity_splash);
