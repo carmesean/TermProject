@@ -4,7 +4,6 @@
         android:drawable="@color/colorPrimary"/>
     <item>
         <bitmap
-            android:gravity="center"
             android:src="@drawable/load"/>
     </item>
 </layer-list>
