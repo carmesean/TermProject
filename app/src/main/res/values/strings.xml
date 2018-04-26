@@ -5,6 +5,7 @@
     <string name="difficulty_btn">Change Difficulty</string>
     <string name="options_btn">Options</string>
     <string name="begin_btn">Begin Game</string>
+    <string name="how_to_play">How to Play</string>
     <string name="options_title">Options</string>
     <string name="enable_sound_title">Enable Sound</string>
     <string name="sound_on">On</string>

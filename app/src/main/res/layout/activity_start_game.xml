@@ -28,7 +28,6 @@
         android:text="Button 2"/>
 
 
-
     <Button
         android:id="@+id/bottom_left_button"
         android:layout_width="150dp"

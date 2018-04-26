@@ -23,7 +23,7 @@ public class StartGameActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         setTheme(R.style.AppTheme);
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.start_game);
+        setContentView(R.layout.activity_start_game);
 
         mBlueButton = findViewById(R.id.top_left_button);
         mRedButton = findViewById(R.id.top_right_button);
