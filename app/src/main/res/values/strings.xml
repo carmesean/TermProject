@@ -5,4 +5,12 @@
     <string name="difficulty_btn">Change Difficulty</string>
     <string name="options_btn">Options</string>
     <string name="begin_btn">Begin Game</string>
+    <string name="options_title">Options</string>
+    <string name="enable_sound_title">Enable Sound</string>
+    <string name="sound_on">On</string>
+    <string name="sound_off">Off</string>
+    <string name="easy_option">Easy</string>
+    <string name="medium_option">Medium</string>
+    <string name="hard_option">Hard</string>
+    <string name="save_options_btn">Save Options</string>
 </resources>

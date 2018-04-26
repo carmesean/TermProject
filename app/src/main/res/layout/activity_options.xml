@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <TextView
+        android:id="@+id/title_options"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/options_title"
+        android:layout_gravity="center_horizontal"
+        android:textSize="40sp"
+        android:fontFamily="@font/advent_pro_bold"/>
+
+    <TextView
+        android:id="@+id/enable_sound_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/enable_sound_title"
+        android:textSize="30sp"
+        android:fontFamily="@font/advent_pro_bold"/>
+
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RadioButton
+            android:id="@+id/on_radio_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:text="@string/sound_on"
+            android:fontFamily="@font/advent_pro_bold"/>
+
+        <RadioButton
+            android:id="@+id/off_radio_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:text="@string/sound_off"
+            android:fontFamily="@font/advent_pro_bold"/>
+    </RadioGroup>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="#000"
+        android:visibility="visible" />
+
+    <TextView
+        android:id="@+id/change_difficulty_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/difficulty_btn"
+        android:textSize="30sp"
+        android:fontFamily="@font/advent_pro_bold"/>
+
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RadioButton
+            android:id="@+id/easy_radio_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:text="@string/easy_option"
+            android:fontFamily="@font/advent_pro_bold"/>
+
+        <RadioButton
+            android:id="@+id/medium_radio_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:text="@string/medium_option"
+            android:fontFamily="@font/advent_pro_bold"/>
+
+        <RadioButton
+            android:id="@+id/hard_radio_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            android:text="@string/hard_option"
+            android:fontFamily="@font/advent_pro_bold"/>
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/save_options_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/save_options_btn"
+        android:fontFamily="@font/advent_pro_bold"/>
+</LinearLayout>
