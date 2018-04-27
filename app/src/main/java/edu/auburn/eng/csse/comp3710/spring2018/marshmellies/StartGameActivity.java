@@ -53,66 +53,12 @@ public class StartGameActivity extends AppCompatActivity {
         });
     }
 
-//
-//        Animation anim = new AlphaAnimation(0.0f, 1.0f);
-//        anim.setDuration(50);
-//        anim.setStartOffset(20);
-//        anim.setRepeatMode(Animation.REVERSE);
-//        anim.setRepeatCount(Animation.INFINITE);
-//        mBlueButton.startAnimation(anim);
-
-        mBlueButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (blueMedia == null) {
-                    //create a blue button media player
-                    blueMedia = MediaPlayer.create(StartGameActivity.this, R.raw.blue_sound);
-                }
-                //sound the blue button
-                blueMedia.start();
-            }
-        });
-
-        mRedButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (redMedia == null) {
-                    //create a red button media player
-                    redMedia = MediaPlayer.create(StartGameActivity.this, R.raw.red_sound);
-                }
-                //sound the red button
-                redMedia.start();
-
-            }
-        });
-
-        mYellowButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (yellowMedia == null) {
-                    //create a yellow button media player
-                    yellowMedia = MediaPlayer.create(StartGameActivity.this, R.raw.yellow_sound);
-                }
-                //sound the yellow button
-                yellowMedia.start();
-            }
-        });
-
-        mGreenButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (greenMedia == null) {
-                    //create a green button media player
-                    greenMedia = MediaPlayer.create(StartGameActivity.this, R.raw.green_sound);
-                }
-                //sound the green button
-                greenMedia.start();
-            }
-        });
     public void startGame(){
         findViewById(R.id.begin_btn).setVisibility(View.INVISIBLE);
         findViewById(R.id.new_game_btn).setVisibility(View.INVISIBLE);
         mSequence = new Sequence();
+
+        //Begin Game
         do {
             addNextSequence();
             playSystemSequence(mSequence.getSysSequence());
@@ -155,6 +101,17 @@ public class StartGameActivity extends AppCompatActivity {
             switch(buttonSelected){
                 case 0: //blue selected
                     mBlueButton.setPressed(true);
+                    mBlueButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            if (blueMedia == null) {
+                                //create a blue button media player
+                                blueMedia = MediaPlayer.create(StartGameActivity.this, R.raw.blue_sound);
+                            }
+                            //sound the blue button
+                            blueMedia.start();
+                        }
+                    });
 
                     Handler h = new Handler();
                     h.postDelayed(new Runnable(){
@@ -167,6 +124,18 @@ public class StartGameActivity extends AppCompatActivity {
                     break;
                 case 1: //red selected
                     mRedButton.setPressed(true);
+                    mRedButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            if (redMedia == null) {
+                                //create a red button media player
+                                redMedia = MediaPlayer.create(StartGameActivity.this, R.raw.red_sound);
+                            }
+                            //sound the red button
+                            redMedia.start();
+
+                        }
+                    });
 
                     Handler h1 = new Handler();
                     h1.postDelayed(new Runnable(){
@@ -179,6 +148,17 @@ public class StartGameActivity extends AppCompatActivity {
                     break;
                 case 2: //yellow selected
                     mYellowButton.setPressed(true);
+                    mYellowButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            if (yellowMedia == null) {
+                                //create a yellow button media player
+                                yellowMedia = MediaPlayer.create(StartGameActivity.this, R.raw.yellow_sound);
+                            }
+                            //sound the yellow button
+                            yellowMedia.start();
+                        }
+                    });
 
                     Handler h2 = new Handler();
                     h2.postDelayed(new Runnable(){
@@ -191,6 +171,17 @@ public class StartGameActivity extends AppCompatActivity {
                     break;
                 case 3: //green selected
                     mGreenButton.setPressed(true);
+                    mGreenButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            if (greenMedia == null) {
+                                //create a green button media player
+                                greenMedia = MediaPlayer.create(StartGameActivity.this, R.raw.green_sound);
+                            }
+                            //sound the green button
+                            greenMedia.start();
+                        }
+                    });
 
                     Handler h3 = new Handler();
                     h3.postDelayed(new Runnable(){
