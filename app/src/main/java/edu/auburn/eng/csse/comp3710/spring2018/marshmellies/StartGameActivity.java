@@ -2,6 +2,7 @@ package edu.auburn.eng.csse.comp3710.spring2018.marshmellies;
 
 import android.content.Context;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -17,6 +18,7 @@ import android.view.animation.Animation;
 import android.widget.Toast;
 
 
+
 public class StartGameActivity extends AppCompatActivity {
     Sequence mSequence;
     int[] buttonID = {1, 2, 3, 4}; //blue: 1, red:2, yellow: 3, green: 4
@@ -29,6 +31,10 @@ public class StartGameActivity extends AppCompatActivity {
     Button mRedButton;
     Button mYellowButton;
     Button mGreenButton;
+    MediaPlayer blueMedia;
+    MediaPlayer redMedia;
+    MediaPlayer yellowMedia;
+    MediaPlayer greenMedia;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +53,62 @@ public class StartGameActivity extends AppCompatActivity {
         });
     }
 
+//
+//        Animation anim = new AlphaAnimation(0.0f, 1.0f);
+//        anim.setDuration(50);
+//        anim.setStartOffset(20);
+//        anim.setRepeatMode(Animation.REVERSE);
+//        anim.setRepeatCount(Animation.INFINITE);
+//        mBlueButton.startAnimation(anim);
+
+        mBlueButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (blueMedia == null) {
+                    //create a blue button media player
+                    blueMedia = MediaPlayer.create(StartGameActivity.this, R.raw.blue_sound);
+                }
+                //sound the blue button
+                blueMedia.start();
+            }
+        });
+
+        mRedButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (redMedia == null) {
+                    //create a red button media player
+                    redMedia = MediaPlayer.create(StartGameActivity.this, R.raw.red_sound);
+                }
+                //sound the red button
+                redMedia.start();
+
+            }
+        });
+
+        mYellowButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (yellowMedia == null) {
+                    //create a yellow button media player
+                    yellowMedia = MediaPlayer.create(StartGameActivity.this, R.raw.yellow_sound);
+                }
+                //sound the yellow button
+                yellowMedia.start();
+            }
+        });
+
+        mGreenButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (greenMedia == null) {
+                    //create a green button media player
+                    greenMedia = MediaPlayer.create(StartGameActivity.this, R.raw.green_sound);
+                }
+                //sound the green button
+                greenMedia.start();
+            }
+        });
     public void startGame(){
         findViewById(R.id.begin_btn).setVisibility(View.INVISIBLE);
         findViewById(R.id.new_game_btn).setVisibility(View.INVISIBLE);
@@ -154,4 +216,5 @@ public class StartGameActivity extends AppCompatActivity {
         Intent intent = new Intent(packageContext, StartGameActivity.class);
         return intent;
     }
+
 }
