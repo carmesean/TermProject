@@ -12,10 +12,23 @@ public class Sequence {
     private ArrayList<Integer> mUserSequence;
 
     //constructor
+    public Sequence(){
+        mSysSequence = new ArrayList<Integer>();
+        mUserSequence = new ArrayList<Integer>();
+    }
+
     public Sequence (ArrayList<Integer> sysSequence, ArrayList<Integer> userSequence) {
         mSysSequence = sysSequence;
         mUserSequence = userSequence;
 
+    }
+
+    public void addToSystemSequence(int num){
+        mSysSequence.add(num);
+    }
+
+    public void addToUserSequence(int num){
+        mUserSequence.add(num);
     }
 
     public ArrayList<Integer> getSysSequence() {

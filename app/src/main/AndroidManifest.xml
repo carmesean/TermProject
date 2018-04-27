@@ -19,6 +19,8 @@
         </activity>
         <activity android:name=".AubieActivity"></activity>
         <activity android:name=".StartGameActivity"></activity>
+        <activity android:name=".OptionsActivity"></activity>
+        <activity android:name=".HowToPlayActivity"></activity>
     </application>
 
 </manifest>

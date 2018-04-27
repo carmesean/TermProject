@@ -5,6 +5,7 @@
     <string name="difficulty_btn">Change Difficulty</string>
     <string name="options_btn">Options</string>
     <string name="begin_btn">Begin Game</string>
+    <string name="new_game">Start New Game</string>
     <string name="how_to_play">How to Play</string>
     <string name="options_title">Options</string>
     <string name="enable_sound_title">Enable Sound</string>
@@ -14,4 +15,10 @@
     <string name="medium_option">Medium</string>
     <string name="hard_option">Hard</string>
     <string name="save_options_btn">Save Options</string>
+
+    <string name="blue_toast">Blue Button has been hit!</string>
+    <string name="red_toast">Red Button has been hit!</string>
+    <string name="yellow_toast">Yellow Button has been hit!</string>
+    <string name="green_toast">Green Button has been hit!</string>
+    <string name="unknown_button_error_toast">Error: Unknown Button has been hit...</string>
 </resources>
