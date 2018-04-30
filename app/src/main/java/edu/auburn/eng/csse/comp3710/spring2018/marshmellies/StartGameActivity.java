@@ -23,7 +23,7 @@ public class StartGameActivity extends AppCompatActivity {
     int userScore = 0;
     boolean isSequenceMatch = true;
     int sequenceCount = 0;
-    Random rngJesus = new Random();
+    Random rn = new Random();
     int sequenceIndex = 0; //index for CountDownTimer
     int currentSequenceIndex = 0; //index for Button onClickListener
     int countFromBeginning = 0;
@@ -192,7 +192,7 @@ public class StartGameActivity extends AppCompatActivity {
 
     //choose a random number and add it the system Sequence
     public void addNextNumberToSequence(){
-        int num = rngJesus.nextInt(4);
+        int num = rn.nextInt(4);
         mSequence.addToSystemSequence(num);
         sequenceCount++;
     }
