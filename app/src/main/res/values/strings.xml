@@ -22,4 +22,5 @@
     <string name="green_toast">Green Button has been hit!</string>
     <string name="unknown_button_error_toast">Error: Unknown Button has been hit...</string>
     <string name="game_over">Game Over, noob!</string>
+    <string name="play_text">Welcome to Aubie\'s Memory!\n\nThis app mimics the classic Simon game. The same rules apply. Select the \"Begin Game"\ button the start. The system will play a sequence of tones. Once the sequence stops, you must play the same sequence back by clicking the respective buttons.\n\nTo restart the game, simply press the \"Begin Game\" button once more. You can also change the difficulty in the options menu. \n\nHappy playing! </string>
 </resources>
