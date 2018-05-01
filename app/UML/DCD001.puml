@@ -1,0 +1,70 @@
+@startuml
+
+title Snake Design Class Diagram
+
+class Activity << (A,orchid) >>
+
+class AubieActivity {
+mStartGameButton
+mHowToPlayButton
+mOptionsButton
+}
+
+class HowToPlayActivity {
+}
+
+class OptionsActivity{
+}
+
+class Sequence{
+mSysSequence
+mUserSequence
+addToSysSequence()
+addToUserSequence()
+getSysSequence()
+getUserSequence()
+}
+
+class SplashActivity {
+}
+
+class StartGameActivity {
+mBlueButton
+mRedButton
+mGreenButton
+mYellowButton
+blueMedia
+redMedia
+greenMedia
+yellowMedia
+mSequence
+userScore
+isSequenceMatch
+sequenceCount
+sequenceIndex
+currentSequenceIndex
+countFromBeginning
+currentLevel
+startGame()
+initializeNewGame()
+incrementLevel()
+addNextNumberToSequence()
+playSystemSequence()
+endGame()
+Intent()
+isMatch()
+}
+
+
+
+AubieActivity -- Options
+HowToPlayActivity --|> Activity
+StartGameActivity --|> Activity
+OptionsActivity --|> Activity
+AubieActivity --|> Activity
+SplashActivity --|> Activity
+Sequence -- StartGameActivity
+
+
+
+@enduml
