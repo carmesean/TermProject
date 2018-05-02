@@ -15,12 +15,17 @@
     <string name="medium_option">Medium</string>
     <string name="hard_option">Hard</string>
     <string name="save_options_btn">Save Options</string>
-
     <string name="blue_toast">Blue Button has been hit!</string>
     <string name="red_toast">Red Button has been hit!</string>
     <string name="yellow_toast">Yellow Button has been hit!</string>
     <string name="green_toast">Green Button has been hit!</string>
     <string name="unknown_button_error_toast">Error: Unknown Button has been hit...</string>
     <string name="game_over">Game Over, noob!</string>
+    <string name="aubie_turn">Aubie\'s Turn!</string>
+    <string name="player_turn">Your Turn!</string>
+    <string name="win_alert_title">Congratulations!</string>
+    <string name="win_alert_message">You won! It looks like your memory is as good as Aubie\'s!</string>
+    <string name="lose_alert_title">Game Over</string>
+    <string name="lose_alert_message">Oh no, you lost. Aubie can be a tricky cat. Click New Game to try again!</string>
     <string name="play_text">Welcome to Aubie\'s Memory!\n\nThis app mimics the classic Simon memory game. The same rules apply. Select the \"Begin Game"\ button the start. The system will play a sequence of tones. Once the sequence stops, you must play the same sequence back by clicking the respective buttons.\n\nTo restart the game, simply press the \"Begin Game\" button once more. You can also change the difficulty in the options menu. \n\nHappy playing! </string>
 </resources>

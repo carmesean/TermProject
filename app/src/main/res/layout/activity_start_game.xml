@@ -58,6 +58,17 @@
         android:fontFamily="@font/advent_pro_bold"
         android:layout_alignParentBottom="true"/>
 
+    <TextView
+        android:id="@+id/turn_alternate_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="100dp"
+        android:text="Test"
+        android:textSize="20sp"
+        android:fontFamily="@font/advent_pro_bold"/>
+
     <Button
         android:id="@+id/begin_btn"
         android:layout_width="wrap_content"

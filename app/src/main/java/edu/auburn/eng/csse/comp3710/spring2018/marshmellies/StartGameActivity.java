@@ -1,10 +1,12 @@
 package edu.auburn.eng.csse.comp3710.spring2018.marshmellies;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.CountDownTimer;
 import android.os.Handler;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -32,7 +34,7 @@ public class StartGameActivity extends AppCompatActivity {
     boolean delayAfterSystemSequence = true;
     int difficultySelected = 2; //by default, set difficulty to Easy (change when PREFERENCES works)
     long difficultyDuration = 0;
-    int maximumLevel = 2;
+    int maximumLevel = 5;
     boolean userHasReachedMaxLevel = false;
 
     Button mBlueButton;
@@ -44,6 +46,7 @@ public class StartGameActivity extends AppCompatActivity {
     MediaPlayer yellowMedia;
     MediaPlayer greenMedia;
     TextView scoreTV;
+    TextView turnTV;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +56,7 @@ public class StartGameActivity extends AppCompatActivity {
 
         findViewById(R.id.new_game_btn).setVisibility(View.INVISIBLE);
         findViewById(R.id.score_text_view).setVisibility(View.INVISIBLE);
+        findViewById(R.id.turn_alternate_view).setVisibility(View.INVISIBLE);
 
         Button beginBtn = findViewById(R.id.begin_btn);
 
@@ -86,6 +90,7 @@ public class StartGameActivity extends AppCompatActivity {
                     }
                 }
                 else{
+                    showYouLoseAlert();
                     endGame();
                 }
             }
@@ -106,6 +111,7 @@ public class StartGameActivity extends AppCompatActivity {
                     }
                 }
                 else{
+                    showYouLoseAlert();
                     endGame();
                 }
             }
@@ -126,6 +132,7 @@ public class StartGameActivity extends AppCompatActivity {
                     }
                 }
                 else{
+                    showYouLoseAlert();
                     endGame();
                 }
             }
@@ -146,6 +153,7 @@ public class StartGameActivity extends AppCompatActivity {
                     }
                 }
                 else{
+                    showYouLoseAlert();
                     endGame();
                 }
             }
@@ -164,6 +172,9 @@ public class StartGameActivity extends AppCompatActivity {
         scoreTV = findViewById(R.id.score_text_view);
         scoreTV.setVisibility(View.VISIBLE);
         scoreTV.setText("Score: 0");
+        turnTV = findViewById(R.id.turn_alternate_view);
+        turnTV.setVisibility(View.VISIBLE);
+        turnTV.setText(R.string.aubie_turn);
         mSequence = new Sequence();
         userScore = 0;
         sequenceCount = 0;
@@ -188,10 +199,20 @@ public class StartGameActivity extends AppCompatActivity {
         if (currentLevel != 0){
             userScore++;
         }
-        currentLevel++;
         scoreTV.setText("Score: " + userScore);
-        addNextNumberToSequence();
-        playSystemSequence(mSequence.getSysSequence());
+        disableAllButtons();
+
+        if (currentLevel == maximumLevel){
+            userHasReachedMaxLevel = true;
+            showYouWinAlert();
+            endGame();
+        }
+        else{
+            currentLevel++;
+            addNextNumberToSequence();
+            turnTV.setText(R.string.aubie_turn);
+            playSystemSequence(mSequence.getSysSequence());
+        }
 
     }
 
@@ -200,6 +221,46 @@ public class StartGameActivity extends AppCompatActivity {
         int num = rn.nextInt(4);
         mSequence.addToSystemSequence(num);
         sequenceCount++;
+    }
+
+    public void showYouWinAlert(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(StartGameActivity.this);
+        builder.setTitle(R.string.win_alert_title);
+        builder.setMessage(R.string.win_alert_message);
+        builder.setCancelable(true);
+
+        builder.setPositiveButton(
+                "Ok",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.cancel();
+                    }
+                }
+        );
+
+        AlertDialog youWinAlert = builder.create();
+        youWinAlert.show();
+    }
+
+    public void showYouLoseAlert(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(StartGameActivity.this);
+        builder.setTitle(R.string.lose_alert_title);
+        builder.setMessage(R.string.lose_alert_message);
+        builder.setCancelable(true);
+
+        builder.setPositiveButton(
+                "Ok",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.cancel();
+                    }
+                }
+        );
+
+        AlertDialog youLoseAlert = builder.create();
+        youLoseAlert.show();
     }
 
     //iterate through the system Sequence and play the selected button's sound and "press the button"
@@ -308,21 +369,37 @@ public class StartGameActivity extends AppCompatActivity {
                 countFromBeginning = 0;
                 currentSequenceIndex = 0;
                 delayAfterSystemSequence = true;
+                turnTV.setText(R.string.player_turn);
+                enableAllButtons();
             }
         }.start();
+    }
+
+    public void enableAllButtons(){
+        (findViewById(R.id.top_left_button)).setEnabled(true);
+        (findViewById(R.id.top_right_button)).setEnabled(true);
+        (findViewById(R.id.bottom_left_button)).setEnabled(true);
+        (findViewById(R.id.bottom_right_button)).setEnabled(true);
+    }
+
+    public void disableAllButtons(){
+        (findViewById(R.id.top_left_button)).setEnabled(false);
+        (findViewById(R.id.top_right_button)).setEnabled(false);
+        (findViewById(R.id.bottom_left_button)).setEnabled(false);
+        (findViewById(R.id.bottom_right_button)).setEnabled(false);
     }
 
     public void endGame(){
         Button mNewGame = findViewById(R.id.new_game_btn);
         mNewGame.setVisibility(View.VISIBLE);
+        turnTV.setVisibility(View.INVISIBLE);
+        disableAllButtons();
         mNewGame.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
                 startGame();
             }
         });
-        Toast.makeText(getApplicationContext(), R.string.game_over,
-                Toast.LENGTH_SHORT).show();
     }
 
     public boolean isMatch(int index, int selectedButtonNumber){
