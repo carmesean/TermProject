@@ -34,6 +34,7 @@ public class OptionsActivity extends AppCompatActivity {
                 if (isChecked == false) {
                     //change theme
                     setTheme(R.style.AppNoSoundTheme);
+                    //add preferences
                 }
                 else {
                     //change to original theme
