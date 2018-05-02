@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import android.view.animation.Animation;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -28,6 +29,11 @@ public class StartGameActivity extends AppCompatActivity {
     int currentSequenceIndex = 0; //index for Button onClickListener
     int countFromBeginning = 0;
     int currentLevel = 0;
+    boolean delayAfterSystemSequence = true;
+    int difficultySelected = 2; //by default, set difficulty to Easy (change when PREFERENCES works)
+    long difficultyDuration = 0;
+    int maximumLevel = 2;
+    boolean userHasReachedMaxLevel = false;
 
     Button mBlueButton;
     Button mRedButton;
@@ -37,6 +43,7 @@ public class StartGameActivity extends AppCompatActivity {
     MediaPlayer redMedia;
     MediaPlayer yellowMedia;
     MediaPlayer greenMedia;
+    TextView scoreTV;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +52,7 @@ public class StartGameActivity extends AppCompatActivity {
         setContentView(R.layout.activity_start_game);
 
         findViewById(R.id.new_game_btn).setVisibility(View.INVISIBLE);
+        findViewById(R.id.score_text_view).setVisibility(View.INVISIBLE);
 
         Button beginBtn = findViewById(R.id.begin_btn);
 
@@ -142,26 +150,6 @@ public class StartGameActivity extends AppCompatActivity {
                 }
             }
         });
-
-
-
-        //Begin Game
-        //do {
-/*        for (int i = 0; i < 5; i++){
-            addNextSequence();
-        }*/
-
-
-/*            if (sequenceCount == 2) {
-                isSequenceMatch = false;
-            }*/
-
-            //isSequenceMatch = false;
-
-        //}while(isSequenceMatch);
-
-        //if (!isSequenceMatch){
-        //}
     }
 
 /*    public void ammendSequence(int identifier) {
@@ -173,6 +161,9 @@ public class StartGameActivity extends AppCompatActivity {
     public void initializeNewGame(){
         findViewById(R.id.begin_btn).setVisibility(View.INVISIBLE);
         findViewById(R.id.new_game_btn).setVisibility(View.INVISIBLE);
+        scoreTV = findViewById(R.id.score_text_view);
+        scoreTV.setVisibility(View.VISIBLE);
+        scoreTV.setText("Score: 0");
         mSequence = new Sequence();
         userScore = 0;
         sequenceCount = 0;
@@ -181,10 +172,24 @@ public class StartGameActivity extends AppCompatActivity {
         currentLevel = 0;
         currentSequenceIndex = 0;
         countFromBeginning = 0;
+
+        if (difficultySelected == 1){
+            difficultyDuration = 1500;
+        }
+        else if (difficultySelected == 2){
+            difficultyDuration = 1000;
+        }
+        else{
+            difficultyDuration = 500;
+        }
     }
 
     public void incrementLevel(){
+        if (currentLevel != 0){
+            userScore++;
+        }
         currentLevel++;
+        scoreTV.setText("Score: " + userScore);
         addNextNumberToSequence();
         playSystemSequence(mSequence.getSysSequence());
 
@@ -204,91 +209,96 @@ public class StartGameActivity extends AppCompatActivity {
         mYellowButton = findViewById(R.id.bottom_left_button);
         mGreenButton = findViewById(R.id.bottom_right_button);
 
-        new CountDownTimer(((sequenceCount + 1) * 1000), 1000){
+        new CountDownTimer(((sequenceCount + 2) * difficultyDuration), difficultyDuration){
             public void onTick(long sequenceTime){
-                int buttonSelected = sysSequence.get(sequenceIndex);
-                Handler h = new Handler();
+                if(delayAfterSystemSequence){
+                    delayAfterSystemSequence = false;
+                }
+                else{
+                    int buttonSelected = sysSequence.get(sequenceIndex);
+                    Handler h = new Handler();
 
-                switch(buttonSelected){
-                    case 0: //blue selected
-                        mBlueButton.setPressed(true);
+                    switch(buttonSelected){
+                        case 0: //blue selected
+                            mBlueButton.setPressed(true);
 
-                        //this will trigger .5 seconds after button has been pressed
-                        h.postDelayed(new Runnable(){
-                            public void run() {
-                                mBlueButton.setPressed(false);
+                            //this will trigger .5 seconds after button has been pressed
+                            h.postDelayed(new Runnable(){
+                                public void run() {
+                                    mBlueButton.setPressed(false);
 
-                                if (blueMedia == null) {
-                                    //create a blue button media player
-                                    blueMedia = MediaPlayer.create(StartGameActivity.this,
-                                            R.raw.blue_sound);
+                                    if (blueMedia == null) {
+                                        //create a blue button media player
+                                        blueMedia = MediaPlayer.create(StartGameActivity.this,
+                                                R.raw.blue_400_m);
+                                    }
+                                    //sound the blue button
+                                    blueMedia.start();
                                 }
-                                //sound the blue button
-                                blueMedia.start();
-                            }
-                        }, 500);
-                        sequenceIndex++;
-                        break;
-                    case 1: //red selected
-                        mRedButton.setPressed(true);
+                            }, 500);
+                            sequenceIndex++;
+                            break;
+                        case 1: //red selected
+                            mRedButton.setPressed(true);
 
-                        //this will trigger .5 seconds after button has been pressed
-                        h.postDelayed(new Runnable(){
-                            public void run() {
-                                mRedButton.setPressed(false);
+                            //this will trigger .5 seconds after button has been pressed
+                            h.postDelayed(new Runnable(){
+                                public void run() {
+                                    mRedButton.setPressed(false);
 
-                               if (redMedia == null) {
-                                    //create a red button media player
-                                    redMedia = MediaPlayer.create(StartGameActivity.this,
-                                            R.raw.red_sound);
+                                    if (redMedia == null) {
+                                        //create a red button media player
+                                        redMedia = MediaPlayer.create(StartGameActivity.this,
+                                                R.raw.red_420_m);
+                                    }
+                                    //sound the red button
+                                    redMedia.start();
                                 }
-                                //sound the red button
-                                redMedia.start();
-                            }
-                        }, 500);
-                        sequenceIndex++;
-                        break;
-                    case 2: //yellow selected
-                        mYellowButton.setPressed(true);
+                            }, 500);
+                            sequenceIndex++;
+                            break;
+                        case 2: //yellow selected
+                            mYellowButton.setPressed(true);
 
-                        //this will trigger .5 seconds after button has been pressed
-                        h.postDelayed(new Runnable(){
-                            public void run() {
-                                mYellowButton.setPressed(false);
+                            //this will trigger .5 seconds after button has been pressed
+                            h.postDelayed(new Runnable(){
+                                public void run() {
+                                    mYellowButton.setPressed(false);
 
-                               if (yellowMedia == null) {
-                                    //create a yellow button media player
-                                    yellowMedia = MediaPlayer.create(StartGameActivity.this,
-                                            R.raw.yellow_sound);
+                                    if (yellowMedia == null) {
+                                        //create a yellow button media player
+                                        yellowMedia = MediaPlayer.create(StartGameActivity.this,
+                                                R.raw.yellow_440_m);
+                                    }
+                                    //sound the yellow button
+                                    yellowMedia.start();
                                 }
-                                //sound the yellow button
-                                yellowMedia.start();
-                            }
-                        }, 500);
-                        sequenceIndex++;
-                        break;
-                    case 3: //green selected
-                        mGreenButton.setPressed(true);
+                            }, 500);
+                            sequenceIndex++;
+                            break;
+                        case 3: //green selected
+                            mGreenButton.setPressed(true);
 
-                        //this will trigger .5 seconds after button has been pressed
-                        h.postDelayed(new Runnable(){
-                            public void run() {
-                                mGreenButton.setPressed(false);
+                            //this will trigger .5 seconds after button has been pressed
+                            h.postDelayed(new Runnable(){
+                                public void run() {
+                                    mGreenButton.setPressed(false);
 
-                                if (greenMedia == null) {
-                                    //create a green button media player
-                                    greenMedia = MediaPlayer.create(StartGameActivity.this,
-                                            R.raw.green_sound);
+                                    if (greenMedia == null) {
+                                        //create a green button media player
+                                        greenMedia = MediaPlayer.create(StartGameActivity.this,
+                                                R.raw.green_460_m);
+                                    }
+                                    //sound the green button
+                                    greenMedia.start();
                                 }
-                                //sound the green button
-                                greenMedia.start();
-                            }
-                        }, 500);
-                        sequenceIndex++;
-                        break;
-                    default:
-                        Toast.makeText(getApplicationContext(),
-                                R.string.unknown_button_error_toast, Toast.LENGTH_SHORT).show();
+                            }, 500);
+                            sequenceIndex++;
+                            break;
+                        default:
+                            Toast.makeText(getApplicationContext(),
+                                    R.string.unknown_button_error_toast, Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
 
@@ -297,6 +307,7 @@ public class StartGameActivity extends AppCompatActivity {
                 sequenceIndex = 0;
                 countFromBeginning = 0;
                 currentSequenceIndex = 0;
+                delayAfterSystemSequence = true;
             }
         }.start();
     }
