@@ -22,6 +22,11 @@
         android:text="@string/enable_sound_title"
         android:textSize="30sp"
         android:fontFamily="@font/advent_pro_bold"/>
+    <Switch
+        android:id="@+id/sound_switch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:showText="true"/>
 
     <RadioGroup
         android:layout_width="match_parent"

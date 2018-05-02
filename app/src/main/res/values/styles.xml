@@ -10,5 +10,8 @@
     <style name="splashTheme" parent="@android:style/Theme.DeviceDefault.Light.NoActionBar">
         <item name="android:windowBackground">@drawable/splash_screen</item>
     </style>
+    <style name="AppNoSoundTheme" parent="AppTheme">
+        <item name="android:soundEffectsEnabled">false</item>
+    </style>
 
 </resources>
