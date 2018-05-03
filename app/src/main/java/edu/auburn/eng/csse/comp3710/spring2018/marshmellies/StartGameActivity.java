@@ -36,6 +36,7 @@ public class StartGameActivity extends AppCompatActivity {
     long difficultyDuration = 0;
     int maximumLevel = 5;
     boolean userHasReachedMaxLevel = false;
+    CountDownTimer cdt;
 
     Button mBlueButton;
     Button mRedButton;
@@ -68,6 +69,31 @@ public class StartGameActivity extends AppCompatActivity {
             }
         });
     }
+
+    @Override
+    protected void onPause(){
+        super.onPause();
+
+        if (cdt != null){
+            cdt.cancel();
+        }
+    }
+
+    @Override
+    protected void onStop(){
+        super.onStop();
+
+        if (cdt != null){
+            cdt.cancel();
+        }
+    }
+
+/*    @Override
+    protected void onResume(){
+        super.onResume();
+
+        //create new CDT with remaining sequence...maybe
+    }*/
 
     public void startGame(){
         //reset all global variables
@@ -184,14 +210,14 @@ public class StartGameActivity extends AppCompatActivity {
         currentSequenceIndex = 0;
         countFromBeginning = 0;
 
-        if (difficultySelected == 1){
+        if (difficultySelected == 1){ //Easy Difficulty
             difficultyDuration = 1500;
         }
-        else if (difficultySelected == 2){
+        else if (difficultySelected == 2){ //Medium Difficulty
             difficultyDuration = 1000;
         }
         else{
-            difficultyDuration = 500;
+            difficultyDuration = 500; // Hard Difficulty
         }
     }
 
@@ -270,7 +296,7 @@ public class StartGameActivity extends AppCompatActivity {
         mYellowButton = findViewById(R.id.bottom_left_button);
         mGreenButton = findViewById(R.id.bottom_right_button);
 
-        new CountDownTimer(((sequenceCount + 2) * difficultyDuration), difficultyDuration){
+        cdt = new CountDownTimer(((sequenceCount + 2) * difficultyDuration), difficultyDuration){
             public void onTick(long sequenceTime){
                 if(delayAfterSystemSequence){
                     delayAfterSystemSequence = false;
