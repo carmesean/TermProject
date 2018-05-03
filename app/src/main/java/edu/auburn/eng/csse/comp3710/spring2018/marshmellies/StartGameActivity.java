@@ -3,6 +3,7 @@ package edu.auburn.eng.csse.comp3710.spring2018.marshmellies;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.media.MediaPlayer;
 import android.os.CountDownTimer;
 import android.os.Handler;
@@ -48,7 +49,8 @@ public class StartGameActivity extends AppCompatActivity {
     MediaPlayer greenMedia;
     TextView scoreTV;
     TextView turnTV;
-
+    public static final String  SETTINGS_NAME = "SettingsFile";
+    boolean isSoundEnabled = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setTheme(R.style.AppTheme);
@@ -60,6 +62,9 @@ public class StartGameActivity extends AppCompatActivity {
         findViewById(R.id.turn_alternate_view).setVisibility(View.INVISIBLE);
 
         Button beginBtn = findViewById(R.id.begin_btn);
+        SharedPreferences switchSettings = getSharedPreferences(SETTINGS_NAME, 0);
+        isSoundEnabled = switchSettings.getBoolean("key", true);
+        difficultySelected = switchSettings.getInt("radioKey", 1);
 
         //When begin button is clicked by user, start the game
         beginBtn.setOnClickListener(new View.OnClickListener(){
@@ -313,14 +318,15 @@ public class StartGameActivity extends AppCompatActivity {
                             h.postDelayed(new Runnable(){
                                 public void run() {
                                     mBlueButton.setPressed(false);
-
-                                    if (blueMedia == null) {
-                                        //create a blue button media player
-                                        blueMedia = MediaPlayer.create(StartGameActivity.this,
-                                                R.raw.blue_400_m);
+                                    if (isSoundEnabled) {
+                                        if (blueMedia == null) {
+                                            //create a blue button media player
+                                            blueMedia = MediaPlayer.create(StartGameActivity.this,
+                                                    R.raw.blue_400_m);
+                                        }
+                                        //sound the blue button
+                                        blueMedia.start();
                                     }
-                                    //sound the blue button
-                                    blueMedia.start();
                                 }
                             }, 500);
                             sequenceIndex++;
@@ -332,14 +338,15 @@ public class StartGameActivity extends AppCompatActivity {
                             h.postDelayed(new Runnable(){
                                 public void run() {
                                     mRedButton.setPressed(false);
-
-                                    if (redMedia == null) {
-                                        //create a red button media player
-                                        redMedia = MediaPlayer.create(StartGameActivity.this,
-                                                R.raw.red_420_m);
+                                    if (isSoundEnabled) {
+                                        if (redMedia == null) {
+                                            //create a red button media player
+                                            redMedia = MediaPlayer.create(StartGameActivity.this,
+                                                    R.raw.red_420_m);
+                                        }
+                                        //sound the red button
+                                        redMedia.start();
                                     }
-                                    //sound the red button
-                                    redMedia.start();
                                 }
                             }, 500);
                             sequenceIndex++;
@@ -351,14 +358,15 @@ public class StartGameActivity extends AppCompatActivity {
                             h.postDelayed(new Runnable(){
                                 public void run() {
                                     mYellowButton.setPressed(false);
-
-                                    if (yellowMedia == null) {
-                                        //create a yellow button media player
-                                        yellowMedia = MediaPlayer.create(StartGameActivity.this,
-                                                R.raw.yellow_440_m);
+                                    if (isSoundEnabled) {
+                                        if (yellowMedia == null) {
+                                            //create a yellow button media player
+                                            yellowMedia = MediaPlayer.create(StartGameActivity.this,
+                                                    R.raw.yellow_440_m);
+                                        }
+                                        //sound the yellow button
+                                        yellowMedia.start();
                                     }
-                                    //sound the yellow button
-                                    yellowMedia.start();
                                 }
                             }, 500);
                             sequenceIndex++;
@@ -370,14 +378,15 @@ public class StartGameActivity extends AppCompatActivity {
                             h.postDelayed(new Runnable(){
                                 public void run() {
                                     mGreenButton.setPressed(false);
-
-                                    if (greenMedia == null) {
-                                        //create a green button media player
-                                        greenMedia = MediaPlayer.create(StartGameActivity.this,
-                                                R.raw.green_460_m);
+                                    if (isSoundEnabled) {
+                                        if (greenMedia == null) {
+                                            //create a green button media player
+                                            greenMedia = MediaPlayer.create(StartGameActivity.this,
+                                                    R.raw.green_460_m);
+                                        }
+                                        //sound the green button
+                                        greenMedia.start();
                                     }
-                                    //sound the green button
-                                    greenMedia.start();
                                 }
                             }, 500);
                             sequenceIndex++;
