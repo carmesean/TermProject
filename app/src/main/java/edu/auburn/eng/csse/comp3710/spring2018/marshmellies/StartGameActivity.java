@@ -35,7 +35,7 @@ public class StartGameActivity extends AppCompatActivity {
     boolean delayAfterSystemSequence = true;
     int difficultySelected = 2; //by default, set difficulty to Easy (change when PREFERENCES works)
     long difficultyDuration = 0;
-    int maximumLevel = 5;
+    int maximumLevel = 25;
     boolean userHasReachedMaxLevel = false;
     CountDownTimer cdt;
 
@@ -78,6 +78,23 @@ public class StartGameActivity extends AppCompatActivity {
     }
 
     @Override
+    public void onSaveInstanceState(Bundle savedInstanceState){
+        super.onSaveInstanceState(savedInstanceState);
+
+        savedInstanceState.putInt("UserScore", userScore);
+        savedInstanceState.putIntegerArrayList("SystemSequence", mSequence.getSysSequence());
+    }
+
+    @Override
+    public void onRestoreInstanceState(Bundle savedInstanceState){
+        super.onRestoreInstanceState(savedInstanceState);
+
+        userScore = savedInstanceState.getInt("UserScore");
+        mSequence = new Sequence(savedInstanceState.getIntegerArrayList("SystemSequence"),
+                mSequence.getUserSequence());
+    }
+
+    @Override
     protected void onPause(){
         super.onPause();
 
@@ -95,12 +112,122 @@ public class StartGameActivity extends AppCompatActivity {
         }
     }
 
-/*    @Override
+    @Override
     protected void onResume(){
         super.onResume();
 
-        //create new CDT with remaining sequence...maybe
-    }*/
+        if (mSequence != null) {
+            Toast.makeText(StartGameActivity.this, "Activity Resumed", Toast.LENGTH_SHORT).show();
+            //playSystemSequence(mSequence.getSysSequence());
+            new CountDownTimer((((sequenceCount - sequenceIndex - 1) + 2) * difficultyDuration), difficultyDuration){
+                public void onTick(long sequenceTime){
+                    if(delayAfterSystemSequence){
+                        delayAfterSystemSequence = false;
+                    }
+                    else{
+                        int buttonSelected = mSequence.getSysSequence().get(sequenceIndex);
+                        Handler h = new Handler();
+
+                        switch(buttonSelected){
+                            case 0: //blue selected
+                                mBlueButton.setPressed(true);
+
+                                //this will trigger .5 seconds after button has been pressed
+                                h.postDelayed(new Runnable(){
+                                    public void run() {
+                                        mBlueButton.setPressed(false);
+                                        if (isSoundEnabled) {
+                                            if (blueMedia == null) {
+                                                //create a blue button media player
+                                                blueMedia = MediaPlayer.create(StartGameActivity.this,
+                                                        R.raw.blue_400_m);
+                                            }
+                                            //sound the blue button
+                                            blueMedia.start();
+                                        }
+                                    }
+                                }, 500);
+                                sequenceIndex++;
+                                break;
+                            case 1: //red selected
+                                mRedButton.setPressed(true);
+
+                                //this will trigger .5 seconds after button has been pressed
+                                h.postDelayed(new Runnable(){
+                                    public void run() {
+                                        mRedButton.setPressed(false);
+                                        if (isSoundEnabled) {
+                                            if (redMedia == null) {
+                                                //create a red button media player
+                                                redMedia = MediaPlayer.create(StartGameActivity.this,
+                                                        R.raw.red_420_m);
+                                            }
+                                            //sound the red button
+                                            redMedia.start();
+                                        }
+                                    }
+                                }, 500);
+                                sequenceIndex++;
+                                break;
+                            case 2: //yellow selected
+                                mYellowButton.setPressed(true);
+
+                                //this will trigger .5 seconds after button has been pressed
+                                h.postDelayed(new Runnable(){
+                                    public void run() {
+                                        mYellowButton.setPressed(false);
+                                        if (isSoundEnabled) {
+                                            if (yellowMedia == null) {
+                                                //create a yellow button media player
+                                                yellowMedia = MediaPlayer.create(StartGameActivity.this,
+                                                        R.raw.yellow_440_m);
+                                            }
+                                            //sound the yellow button
+                                            yellowMedia.start();
+                                        }
+                                    }
+                                }, 500);
+                                sequenceIndex++;
+                                break;
+                            case 3: //green selected
+                                mGreenButton.setPressed(true);
+
+                                //this will trigger .5 seconds after button has been pressed
+                                h.postDelayed(new Runnable(){
+                                    public void run() {
+                                        mGreenButton.setPressed(false);
+                                        if (isSoundEnabled) {
+                                            if (greenMedia == null) {
+                                                //create a green button media player
+                                                greenMedia = MediaPlayer.create(StartGameActivity.this,
+                                                        R.raw.green_460_m);
+                                            }
+                                            //sound the green button
+                                            greenMedia.start();
+                                        }
+                                    }
+                                }, 500);
+                                sequenceIndex++;
+                                break;
+                            default:
+                                Toast.makeText(getApplicationContext(),
+                                        R.string.unknown_button_error_toast, Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }
+
+                //After the count down timer is finished, do something
+                public void onFinish(){
+                    sequenceIndex = 0;
+                    countFromBeginning = 0;
+                    currentSequenceIndex = 0;
+                    delayAfterSystemSequence = true;
+                    turnTV.setText(R.string.player_turn);
+                    enableAllButtons();
+                }
+            }.start();
+        }
+    }
 
     public void startGame(){
         //reset all global variables
