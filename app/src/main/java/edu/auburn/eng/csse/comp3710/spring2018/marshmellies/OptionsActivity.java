@@ -19,14 +19,19 @@ import android.widget.RadioButton;
 import android.widget.Switch;
 import android.widget.Toast;
 
+import static edu.auburn.eng.csse.comp3710.spring2018.marshmellies.StartGameActivity.SETTINGS_NAME;
+
 
 public class OptionsActivity extends AppCompatActivity {
     Switch mSoundSwitch;
     RadioButton mEasyButton;
     RadioButton mMediumButton;
     RadioButton mHardButton;
-    public static final String  SETTINGS_NAME = "SettingsFile";
+    Button mSaveOptionsBtn;
+    public static final String  SOUND_SETTINGS_NAME = "SoundSettingsFile";
+    public static final String  DIFFICULTY_SETTINGS_NAME = "DifficultySettingsFile";
     boolean isSoundEnabled;
+    int difficulty = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceBundle){
@@ -39,10 +44,51 @@ public class OptionsActivity extends AppCompatActivity {
         mMediumButton = findViewById(R.id.medium_radio_btn);
         mHardButton = findViewById(R.id.hard_radio_btn);
 
-        SharedPreferences switchSettings = getSharedPreferences(SETTINGS_NAME, 0);
+        mSaveOptionsBtn = findViewById(R.id.save_options_btn);
+        mSaveOptionsBtn.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                if (mEasyButton.isChecked()) {
+                    SharedPreferences difficultySettings = getSharedPreferences(DIFFICULTY_SETTINGS_NAME, 0);
+                    SharedPreferences.Editor editor = difficultySettings.edit();
+                    editor.putInt("difficultyKey", 1);
+                    editor.commit();
+
+                }
+
+                if (mMediumButton.isChecked()) {
+                    SharedPreferences difficultySettings  = getSharedPreferences(DIFFICULTY_SETTINGS_NAME, 0);
+                    SharedPreferences.Editor editor = difficultySettings.edit();
+                    editor.putInt("difficultyKey", 2);
+                    editor.commit();
+                }
+
+                if (mHardButton.isChecked()) {
+                    SharedPreferences difficultySettings  = getSharedPreferences(DIFFICULTY_SETTINGS_NAME, 0);
+                    SharedPreferences.Editor editor = difficultySettings.edit();
+                    editor.putInt("difficultyKey", 3);
+                    editor.commit();
+                }
+
+                Toast.makeText(OptionsActivity.this, "Options Saved!", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        SharedPreferences switchSettings = getSharedPreferences(SOUND_SETTINGS_NAME, 0);
         isSoundEnabled = switchSettings.getBoolean("key", true);
         mSoundSwitch.setChecked(isSoundEnabled);
 
+        SharedPreferences difficultySettings = getSharedPreferences(DIFFICULTY_SETTINGS_NAME, 0);
+        difficulty = difficultySettings.getInt("difficultyKey", 0);
+        if (difficulty == 1){
+            mEasyButton.setChecked(true);
+        }
+        else if (difficulty == 2){
+            mMediumButton.setChecked(true);
+        }
+        else{
+            mHardButton.setChecked(true);
+        }
 
         mSoundSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -61,26 +107,9 @@ public class OptionsActivity extends AppCompatActivity {
                 editor.commit();
             }
         });
-
-        if (mEasyButton.isChecked()) {
-            switchSettings = getSharedPreferences(SETTINGS_NAME, 0);
-            SharedPreferences.Editor editor = switchSettings.edit();
-            editor.putInt("radioKey", 1);
-
-        }
-
-        if (mMediumButton.isChecked()) {
-            switchSettings = getSharedPreferences(SETTINGS_NAME, 0);
-            SharedPreferences.Editor editor = switchSettings.edit();
-            editor.putInt("radioKey", 2);
-        }
-
-        if (mHardButton.isChecked()) {
-            switchSettings = getSharedPreferences(SETTINGS_NAME, 0);
-            SharedPreferences.Editor editor = switchSettings.edit();
-            editor.putInt("radioKey", 3);
-        }
     }
+
+
 
 
     public static Intent newIntent(Context packageContext){

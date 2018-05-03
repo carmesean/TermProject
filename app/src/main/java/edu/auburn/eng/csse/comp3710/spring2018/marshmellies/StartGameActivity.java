@@ -50,6 +50,7 @@ public class StartGameActivity extends AppCompatActivity {
     TextView scoreTV;
     TextView turnTV;
     public static final String  SETTINGS_NAME = "SettingsFile";
+    public static final String  DIFFICULTY_SETTINGS_NAME = "DifficultySettingsFile";
     boolean isSoundEnabled = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,8 +64,9 @@ public class StartGameActivity extends AppCompatActivity {
 
         Button beginBtn = findViewById(R.id.begin_btn);
         SharedPreferences switchSettings = getSharedPreferences(SETTINGS_NAME, 0);
+        SharedPreferences difficultySettings = getSharedPreferences(DIFFICULTY_SETTINGS_NAME, 0);
         isSoundEnabled = switchSettings.getBoolean("key", true);
-        difficultySelected = switchSettings.getInt("radioKey", 1);
+        difficultySelected = difficultySettings.getInt("difficultyKey", 1);
 
         //When begin button is clicked by user, start the game
         beginBtn.setOnClickListener(new View.OnClickListener(){
