@@ -1,0 +1,33 @@
+@startuml
+title Simon SSD
+actor Player
+participant Button
+actor GameSystem
+group SD: Simon
+
+opt change difficulty
+Player -> GameSystem: select diffculty level
+ note right: UC: Choose Difficulty
+ Player -> GameSystem: enable/disable sound
+ note right: UC: Choose Sound Setting
+
+
+end
+Player -> GameSystem: start game
+note right: UC: Play Game
+loop while !(wrong)
+GameSystem -> Button: sound button
+note right: UC: Play Pattern
+Player -> Button: select
+note right: UC: Choose Pattern
+GameSystem -> Player: check pattern validity
+note right: UC: Check User Pattern
+GameSystem -> Button: add button to sequence
+note right: UC: Add to Sequence
+end
+
+GameSystem -> Player: alertWrong
+note right: UC: Alert Wrong
+
+end
+@enduml

@@ -1,0 +1,42 @@
+@startuml
+
+title Simon Domain Model
+class AubieGame {
+}
+
+class Player {
+}
+
+
+class Sequence{
+systemSequence
+userSequence
+}
+
+class Button {
+blueButton
+redButton
+yellowButton
+greenButton
+}
+
+class Score {
+numCorrect
+}
+
+class System {
+}
+
+Player -- AubieGame: starts >
+Player -- Button: selects >
+Player -- Sequence: chooses >
+AubieGame -- Score: outputs >
+System -- Sequence: plays >
+
+
+
+
+hide empty members
+hide methods
+
+@enduml

@@ -1,0 +1,30 @@
+@startuml
+title Use Case Diagram
+
+actor Player
+actor GameSystem
+
+rectangle  {
+usecase "play game" as UC1
+usecase "play pattern" as UC4
+usecase "alert wrong" as UC5
+usecase "choose difficulty" as UC7
+usecase "choose pattern" as UC8
+usecase "choose sound setting" as UC9
+usecase "check user pattern" as UC10
+usecase "add to sequence" as UC11
+Player -- UC1
+Player -- UC7
+Player -- UC9
+UC1 ..> UC8 : <<includes>>
+
+
+GameSystem -- UC4
+GameSystem -- UC11
+GameSystem -- UC5
+UC11 ..> UC10: <<includes>>
+
+
+
+}
+@enduml
